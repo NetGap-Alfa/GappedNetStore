@@ -1,13 +1,16 @@
-import './App.css';
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { LoginPage } from "./pages/login/loginPage";
+import { ShoppingCartPage } from "./pages/shoppingCart/shoppingCartPage";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>
-        Texto
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/shoppingCart" element={<ShoppingCartPage />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
