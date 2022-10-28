@@ -1,0 +1,18 @@
+.client-header-container {
+    background-color: rgb(216, 207, 207);
+    width: auto;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.client-header-label {
+    margin-right: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.header-button-container{
+    margin-right: 30px;
+}
