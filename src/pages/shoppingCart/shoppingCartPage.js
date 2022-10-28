@@ -4,9 +4,11 @@ import './shoppingCartPage.css'
 export const ShoppingCartPage = () => {
   return (
     <div>
-        <h1 className='h1-shopping'>
+      <div className="main-container">
+        <h1 className='h1-shoppingCartPage'>
           Shopping Cart PAGE
         </h1>
+      </div>
     </div>
   )
 }
