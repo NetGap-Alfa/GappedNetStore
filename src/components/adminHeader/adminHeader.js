@@ -6,17 +6,31 @@ import { Button } from "../button/button";
 export const AdminHeader = () => {
   const navigate = useNavigate();
   return (
-    <div className="client-header-container">
-      <h2 className="client-header-label">Vista Administrador</h2>
-      <div className="header-button-container">
-        <Button text="Lista productos" onClickFunc={() => navigate('/admin/shoppingList')}/>
-      </div>
-      <div className="header-button-container">
-        <Button text="Modificar productos" onClickFunc={() => navigate('/admin/modifyProducts')}/>
-      </div>
-      <div>
-        <Button text="Lista ventas" onClickFunc={() => navigate('/admin/salesList')}/>
-      </div>
+<>
+
+<nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+  <div className="container-fluid">
+    
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href={'/admin/shoppingList'} >Lista productos</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href={'/admin/modifyProducts'} >Modificar productos</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href={'/admin/salesList'}>Lista ventas</a>
+        </li>
+      </ul>
+      
     </div>
+  </div>
+</nav>
+
+    </>
   );
 };
