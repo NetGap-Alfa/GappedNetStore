@@ -1,0 +1,18 @@
+{
+    "productos": [
+      {
+        "id": "GGOEAFKA087499",
+        "urlImagen": "https://i.blogs.es/27b569/telefono/450_1000.jpeg",
+        "amount":2,
+        "nombre": "Android Small Removable Sticker Sheet",
+        "precio": "2.99"
+      },
+      {
+        "id": "GGOEAFKA087599",
+        "urlImagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rubik's_cube.svg/240px-Rubik's_cube.svg.png",
+        "name": "Android Large Removable Sticker Sheet",
+        "amount":1,
+        "price": "3.99"
+      }
+    ]
+  }
