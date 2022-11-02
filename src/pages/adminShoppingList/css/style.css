@@ -228,7 +228,7 @@ figure {
 }
 @media screen and (max-width: 1200px) {
   #fh5co-main {
-    width: 70%;
+    width: 100%;
   }
 }
 @media screen and (max-width: 768px) {
