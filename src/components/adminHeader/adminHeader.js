@@ -27,10 +27,10 @@ export const AdminHeader = () => {
         </li>
       </ul>
       
-    </div>
-  </div>
-</nav>
 
+    </div>
+    </div>
+    </nav>
     </>
   );
 };
