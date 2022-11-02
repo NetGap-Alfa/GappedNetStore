@@ -3,17 +3,18 @@
 }
 
 .table-salesList{
-    width: 100%;
+    width: 50%;
     border: 1px solid #000;
 }
 
 .th-salesList{
 
-    width: 25%;
+   width: 25%;
    text-align: left;
    vertical-align: top;
    border: 1px solid #000;
    border-collapse: collapse;
    padding: 0.3em;
    caption-side: bottom;
+   color: #000;
 }
