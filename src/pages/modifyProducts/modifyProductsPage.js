@@ -15,7 +15,7 @@ export const ModifyProductsPage = () => {
     <div>
       <AdminHeader />
       <div className="secondary-container">
-        <div className="main-container">
+        <div className="main-container div-btn">
           {productsExample.productos.map((product, index) => (
             <div className="product-names">
               <Button
@@ -28,16 +28,16 @@ export const ModifyProductsPage = () => {
           ))}
         </div>
         <div>
-          <img src={activeProduct.urlImagen} />
+          <img className="img-modifiP" src={activeProduct.urlImagen} />
         </div>
-        <div>
-          <Input
+        <div className="div-txt">
+          <Input c
             name="name"
             id="name"
             tag="Nombre: "
             defaultValue={activeProduct.nombre}
           />
-          <TextArea
+          <TextArea 
             name="description"
             id="description"
             tag="Descripción: "
