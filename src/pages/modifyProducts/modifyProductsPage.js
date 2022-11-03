@@ -28,6 +28,22 @@ export const ModifyProductsPage = () => {
                 />
               </div>
             ))}
+            <div className="product-names">
+              <Button
+                text="Crear Producto"
+                otherprops="create-buttons "
+                onClickFunc={() =>
+                  setActiveProduct({
+                    id: "",
+                    urlImagen: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+                    nombre: "",
+                    descripcion: "",
+                    stock: "",
+                    precio: "",
+                  })
+                }
+              />
+            </div>
           </div>
           <div>
             <img className="img-modifiP" src={activeProduct.urlImagen} />
@@ -61,10 +77,22 @@ export const ModifyProductsPage = () => {
               tag="Stock: "
               defaultValue={activeProduct.stock}
             />
+            {activeProduct.id == "" ? (
+              <Input
+                otherInputProps="modify-input"
+                name="url"
+                id="url"
+                tag="Imagen: "
+              />
+            ) : null}
           </div>
         </div>
         <div className="secondary-container">
-          <Button text="Actualizar" />
+          {activeProduct.id == "" ? (
+            <Button text="Crear" />
+          ) : (
+            <Button text="Actualizar" />
+          )}
         </div>
       </div>
     </div>
