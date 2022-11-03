@@ -1,10 +1,10 @@
 import React from "react";
 import "./button.css";
 
-export const Button = ({text,onClickFunc}) => {
+export const Button = ({text,onClickFunc,otherprops}) => {
   return (
     <div>
-      <button className="button"
+      <button className={`button ${otherprops}`}
         onClick={onClickFunc}
       >
         {text}
