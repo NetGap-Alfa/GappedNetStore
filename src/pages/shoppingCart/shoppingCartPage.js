@@ -11,23 +11,23 @@ export const ShoppingCartPage = () => {
     <div>
       <ClientHeader />
       <div className="main-container">
-        <table>
+        <table className="table-shoping" >
           <tr>
-            <th>Imagen</th>
-            <th>Cantidad</th>
-            <th>Producto</th>
-            <th>Valor</th>
-            <th>Total</th>
+            <th className="th-shopingCart">Imagen</th>
+            <th className="th-shopingCart">Cantidad</th>
+            <th className="th-shopingCart">Producto</th>
+            <th className="th-shopingCart">Valor</th>
+            <th className="th-shopingCart">Total</th>
           </tr>
           {productCartExample.productos.map((product) => (
             <tr>
-              <td>
-                <img src={product.urlImage}/>
+              <td className="th-shopingCart">
+                <img className="img-shoping" src={product.urlImage}/>
               </td>
-              <td>{product.amount}</td>
-              <td>{product.name}</td>
-              <td>{product.price}</td>
-              <td>{product.price*product.amount}</td>
+              <td className="th-shopingCart">{product.amount}</td>
+              <td className="th-shopingCart">{product.name}</td>
+              <td className="th-shopingCart">{product.price}</td>
+              <td className="th-shopingCart">{product.price*product.amount}</td>
             </tr>
           ))}
         </table>
