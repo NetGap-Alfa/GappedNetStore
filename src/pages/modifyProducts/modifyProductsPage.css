@@ -1,3 +1,14 @@
 .h1-modifyProducts{
     background-color: blueviolet;
 }
+
+.secondary-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-names{
+    margin-top: 15px;
+}

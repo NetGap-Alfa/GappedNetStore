@@ -14,8 +14,6 @@ export const SalesListPage = () => {
     <div>
       <AdminHeader />
       <div className="main-container">
-        <h1 className="h1-salesList">Sales List Page</h1>
-
         <table className="table-salesList">
           <tr>
             <th className="th-salesList">Fecha</th>
