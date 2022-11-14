@@ -14,7 +14,7 @@ const products = [
     "precio": "2.99"
   },
   {
-    "id": "GGOEAFKA087499",
+    "id": "GGOEAFKA087500",
     "urlImagen": "https://i.blogs.es/27b569/telefono/450_1000.jpeg",
     "nombre": "control",
     "descripcion": "Show your Android pride by placing these 8 fun stickers on your technology products or accessories!",
@@ -66,15 +66,28 @@ router.get('/stock', cors(), (req, res) => {
 
 });
 
-router.post('/:id', (req, res) => {
-  res.send('post product');
-  /* console.log(req.body);
-   console.log(req.params);
-     res.send(`product ${req.params.id} insert`);
-     */
+router.post('/create', (req, res) => {
+  const productoA = products.find(productoN => productoN.id == req.body.id);
+
+  if (productoA != undefined) {
+
+    res.json("El producto ya  existe");
+
+  } else {
+    products.push({
+      id: req.body.id,
+      urlImagen: req.body.urlImagen,
+      nombre: req.body.nombre,
+      descripcion: req.body.descripcion,
+      stock: req.body.stock,
+      precio: req.body.precio,
+    });
+    res.json("El producto se creo");
+
+  }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/', (req, res) => {
   res.send('put product');
   /*  console.log(req.body);
     console.log(req.params);
