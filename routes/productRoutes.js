@@ -30,7 +30,7 @@ const products = [
     nombre: "Android Cellphone",
     descripcion:
       "Show your Android Cellphone pride by placing these technology products to the top",
-    stock: 15,
+    stock: 0,
     precio: "444.99",
   },
   {
@@ -48,7 +48,7 @@ const products = [
       "https://www.akg.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw671f8dbf/AKG_HT300_Mic_Rear_RGB_Clipped.png?sw=556&sh=680&sm=fit",
     nombre: "PNG Microphone",
     descripcion: "No idea, i just wanted to see how a png would work",
-    stock: 5,
+    stock: 0,
     precio: "9.99",
   },
 ];

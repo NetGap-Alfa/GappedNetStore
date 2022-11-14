@@ -127,7 +127,7 @@ router.post("/addToCart", cors(), (req, res) => {
         (product) => product.id == req.body.productId
       ).amount = req.body.amount;
     }
-    res.json("Agregado con exito");
+    res.json({ successMessage: "Agregado con exito" });
   } else {
     res.json({ errorMessage: "Not found" });
   }
@@ -181,7 +181,7 @@ router.post("/buy", cors(), (req, res) => {
     shoppingCart.productos = [];
 
     res.json({
-      errorMessage: "Comprado con éxito",
+      successMessage: "Comprado con éxito",
       ventas: sales,
       productos: products,
     });
