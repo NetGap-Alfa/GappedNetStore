@@ -54,18 +54,40 @@ const products = [
   },
 ];
 
-router.get("/", cors(), async(req, res) => {
+router.get("/", cors(), async (req, res) => {
   const result = await Product.find({})
 
   res.json(result);
 });
 
-router.get("/stock", cors(), (req, res) => {
-  const stockp = products.filter((totalStock) => totalStock.stock > 0);
+router.get("/stock", cors(), async (req, res) => {
+  const result = await Product.find({});
+  const stockp = result.filter((totalStock) => totalStock.stock > 0);
   res.json(stockp);
 });
 
-router.post("/create", (req, res) => {
+router.post("/create/:id", async (req, res) => {
+  const { id } = req.params;
+  
+  const result = await Product.find({});
+
+  let validar = result.filter((productoN) => productoN.id == req.body.id); 
+  //res.json(validar);
+  
+  if (validar.length !== 0) {
+
+    res.json("no")
+    //const prod = new Product(req.body );
+    //const result = await prod.save();
+    //res.json( "El producto se creo" );
+  } else {
+    res.json("si")
+    //res.json("El producto ya existe" );
+  }
+  
+  
+  
+  /*
   const productoA = products.find((productoN) => productoN.id == req.body.id);
 
   if (productoA != undefined) {
@@ -81,6 +103,8 @@ router.post("/create", (req, res) => {
     });
     res.json({ successMessage: "El producto se creo" });
   }
+*/
+
 });
 
 router.put("/update", (req, res) => {
