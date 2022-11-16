@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const app = express();
 app.use(bodyParser.json())
 
+//Connect DB
+require('./drivers/driver-mongoose');
+
 //Import Routes
 const productRoutes = require('./routes/productRoutes')
 const salesRoutes = require('./routes/salesRoutes')

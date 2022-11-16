@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const Product = require('../models/Producto');
 
 const router = express.Router();
 
@@ -53,9 +54,12 @@ const products = [
   },
 ];
 
-router.get("/", cors(), (req, res) => {
-  res.json(products);
+router.get("/", cors(), async(req, res) => {
+  const result = await Product.find({})
+
+  res.json(result);
 });
+
 router.get("/stock", cors(), (req, res) => {
   const stockp = products.filter((totalStock) => totalStock.stock > 0);
   res.json(stockp);
