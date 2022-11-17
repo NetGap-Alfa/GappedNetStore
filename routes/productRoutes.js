@@ -4,56 +4,6 @@ const Product = require('../models/Producto');
 
 const router = express.Router();
 
-const products = [
-  {
-    id: "GGOEAFKA087499",
-    urlImagen: "https://i.blogs.es/27b569/telefono/450_1000.jpeg",
-    nombre: "Android Small Removable Sticker Sheet",
-    descripcion:
-      "Show your Android pride by placing these 8 fun stickers on your technology products or accessories!",
-    stock: 2,
-    precio: "2.99",
-  },
-  {
-    id: "GGOEAFKA087599",
-    urlImagen:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rubik's_cube.svg/240px-Rubik's_cube.svg.png",
-    nombre: "Android Large Removable Sticker Sheet",
-    descripcion:
-      "Show your quirky side by placing these fun Android stickers on your personal belongings.",
-    stock: 10,
-    precio: "3.99",
-  },
-  {
-    id: "GGOEAFKA087399",
-    urlImagen:
-      "https://olimpica.vtexassets.com/arquivos/ids/557166/Celular-XIAOMI-Redmi-Note-10-Pro-128GB-Blue.jpg",
-    nombre: "Android Cellphone",
-    descripcion:
-      "Show your Android Cellphone pride by placing these technology products to the top",
-    stock: 0,
-    precio: "444.99",
-  },
-  {
-    id: "GGOEAFKA087299",
-    urlImagen:
-      "https://spectrum.ieee.org/media-library/the-ibm-pc-introduced-in-august-1981.jpg?id=27044507&width=400&height=300",
-    nombre: "IBM computer",
-    descripcion: "IBM computer, very pricy but old AF",
-    stock: 2,
-    precio: "667.99",
-  },
-  {
-    id: "GGOEAFKA087199",
-    urlImagen:
-      "https://www.akg.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw671f8dbf/AKG_HT300_Mic_Rear_RGB_Clipped.png?sw=556&sh=680&sm=fit",
-    nombre: "PNG Microphone",
-    descripcion: "No idea, i just wanted to see how a png would work",
-    stock: 0,
-    precio: "9.99",
-  },
-];
-
 router.get("/", cors(), async (req, res) => {
   const result = await Product.find({})
 
@@ -66,65 +16,40 @@ router.get("/stock", cors(), async (req, res) => {
   res.json(stockp);
 });
 
-router.post("/create/:id", async (req, res) => {
-  const { id } = req.params;
-  
+router.post("/create", async (req, res) => {
+
   const result = await Product.find({});
 
-  let validar = result.filter((productoN) => productoN.id == req.body.id); 
-  //res.json(validar);
-  
-  if (validar.length !== 0) {
+  let validar = result.filter((productoN) => productoN.id == req.body.id);
 
-    res.json("no")
-    //const prod = new Product(req.body );
-    //const result = await prod.save();
-    //res.json( "El producto se creo" );
+  if (validar.length == 0) {
+    const prod = new Product(req.body);
+    const result = await prod.save();
+    res.send("El producto se creo");
   } else {
-    res.json("si")
-    //res.json("El producto ya existe" );
-  }
-  
-  
-  
-  /*
-  const productoA = products.find((productoN) => productoN.id == req.body.id);
+    res.send("El producto ya existe")
 
-  if (productoA != undefined) {
-    res.json({ errorMessage: "El producto ya existe" });
-  } else {
-    products.push({
-      id: req.body.id,
-      urlImagen: req.body.urlImagen,
-      nombre: req.body.nombre,
-      descripcion: req.body.descripcion,
-      stock: req.body.stock,
-      precio: req.body.precio,
-    });
-    res.json({ successMessage: "El producto se creo" });
   }
-*/
+
 
 });
 
-router.put("/update", (req, res) => {
-  const product = products.find((product) => product.id == req.body.id);
-  if (product != undefined) {
-    const prodIndex = products.findIndex(
-      (product) => product.id == req.body.id
-    );
-    products[prodIndex] = {
-      id: req.body.id,
-      urlImagen: req.body.urlImagen,
-      nombre: req.body.nombre,
-      descripcion: req.body.descripcion,
-      stock: req.body.stock,
-      precio: req.body.precio,
-    };
-    res.json({ successMessage: "Producto Actualizado con éxito" });
+router.put("/update", async (req, res) => {
+
+  const result = await Product.find({});
+
+  let validar = result.filter((product) => product.id == req.body.id);
+
+  if (validar.length != 0) {
+    const id = validar[0]._id;
+    const prod = req.body;
+    const result = await Product.findByIdAndUpdate(id, prod);
+    res.send("Producto Actualizado con éxito");
   } else {
-    res.json({ errorMessage: "Producto no existe" });
+    res.send("Producto no existe")
+
   }
+
 });
 
 module.exports = router;

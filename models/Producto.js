@@ -33,4 +33,4 @@ const AuthorSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('product', AuthorSchema)
+module.exports = mongoose.model('products', AuthorSchema)
