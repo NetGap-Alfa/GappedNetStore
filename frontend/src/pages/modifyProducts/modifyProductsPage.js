@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import "./modifyProductsPage.css";
 import { AdminHeader } from "../../components/adminHeader/adminHeader";
 import { productsExample } from "../../data/data";
@@ -7,9 +7,29 @@ import { Input } from "../../components/input/input";
 import { TextArea } from "../../components/textArea/textArea";
 
 export const ModifyProductsPage = () => {
-  const [activeProduct, setActiveProduct] = useState(
+/*  const [activeProduct, setActiveProduct] = useState(
     productsExample.productos.at(0)
   );
+*/
+  const [updateProducts, setUpdateProducts] = useState(false)
+  const [dataProducts, setDataProducts] = useState([]);
+ const [temp, setTemp] = useState('');
+
+  useEffect(() => {
+    getData();
+    //console.log(`Datows ${dataProducts.length}`);
+  }, [updateProducts]);
+  
+  function getData() {
+    fetch(`http://localhost:5000/api/products`)
+      .then((resp) => resp.json())
+      .then((resp) => {
+        //console.log(resp)//;})
+        setDataProducts(resp)
+      })
+      .catch((err) => console.log(err));
+  }
+
 
   return (
     <div>
@@ -17,23 +37,30 @@ export const ModifyProductsPage = () => {
       <div className="main-container">
         <div className="secondary-container">
           <div className="main-container div-btn">
-            {productsExample.productos.map((product, index) => (
+
+            {dataProducts.map((product, index) => (
+            
               <div className="product-names">
-                <Button
+                            <Button
                   text={product.nombre}
                   otherprops="modify-buttons"
                   onClickFunc={() =>
-                    setActiveProduct(productsExample.productos.at(index))
+                    //console.log(index)
+                    setTemp(index)
+                   // setDataProducts(dataProducts.at(index))
                   }
                 />
               </div>
+              
             ))}
             <div className="product-names">
               <Button
                 text="Crear Producto"
                 otherprops="create-buttons "
-                onClickFunc={() =>
-                  setActiveProduct({
+                onClickFunc={
+                  
+                  () =>
+                  setDataProducts({
                     id: "",
                     urlImagen: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
                     nombre: "",
@@ -46,7 +73,9 @@ export const ModifyProductsPage = () => {
             </div>
           </div>
           <div>
-            <img className="img-modifiP" src={activeProduct.urlImagen} />
+            <span>{temp}</span>
+            <br></br>
+            <img className="img-modifiP" src={dataProducts.urlImagen} />
           </div>
           <div className="div-txt">
             <Input
@@ -54,30 +83,30 @@ export const ModifyProductsPage = () => {
               name="name"
               id="name"
               tag="Nombre: "
-              defaultValue={activeProduct.nombre}
+              defaultValue={dataProducts.nombre}
             />
             <TextArea
               otherInputProps="modify-input"
               name="description"
               id="description"
               tag="Descripción: "
-              defaultValue={activeProduct.descripcion}
+              defaultValue={dataProducts.descripcion}
             />
             <Input
               otherInputProps="modify-input"
               name="price"
               id="price"
               tag="Precio: "
-              defaultValue={activeProduct.precio}
+              defaultValue={dataProducts.precio}
             />
             <Input
               otherInputProps="modify-input"
               name="stock"
               id="stock"
               tag="Stock: "
-              defaultValue={activeProduct.stock}
+              defaultValue={dataProducts.stock}
             />
-            {activeProduct.id == "" ? (
+            {dataProducts.id == "" ? (
               <Input
                 otherInputProps="modify-input"
                 name="url"
@@ -88,7 +117,7 @@ export const ModifyProductsPage = () => {
           </div>
         </div>
         <div className="secondary-container">
-          {activeProduct.id == "" ? (
+          {dataProducts.id == "" ? (
             <Button text="Crear" />
           ) : (
             <Button text="Actualizar" />

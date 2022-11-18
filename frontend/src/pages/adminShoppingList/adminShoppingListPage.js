@@ -17,29 +17,14 @@ export const AdminShoppingListPage = () => {
 
   useEffect(() => {
     getData();
-    console.log(`Datos ${dataProducts.length}`);
+   // console.log(`Datos ${dataProducts.length}`);
   }, [updateProducts]);
-  /*
-    async function getData() {
   
-      let datos = await fetch('http://localhost:5000/api/products', {
-        
-        "method": 'GET',
-        "mode": 'no-cors',
-        "headers": {
-         // "Access-Control-Allow-Origin": '*',
-          "Content-Type": 'application/json'
-        }
-      })
-      let d = await datos.json;
-  
-      return await setDataProducts(datos.json);
-    }*/
   function getData() {
     fetch(`http://localhost:5000/api/products`)
       .then((resp) => resp.json())
       .then((resp) => {
-        //console.log(resp);})
+        //console.log(resp);//})
         setDataProducts(resp)
       })
       .catch((err) => console.log(err));
