@@ -7,123 +7,145 @@ import { Input } from "../../components/input/input";
 import { TextArea } from "../../components/textArea/textArea";
 
 export const ModifyProductsPage = () => {
-/*  const [activeProduct, setActiveProduct] = useState(
-    productsExample.productos.at(0)
-  );
-*/
+  /*  const [activeProduct, setActiveProduct] = useState(
+      productsExample.productos.at(0)
+    );
+  */
   const [updateProducts, setUpdateProducts] = useState(false)
   const [dataProducts, setDataProducts] = useState([]);
- const [temp, setTemp] = useState('');
+  const [temp, setTemp] = useState('');
 
   useEffect(() => {
     getData();
     //console.log(`Datows ${dataProducts.length}`);
   }, [updateProducts]);
-  
+
   function getData() {
     fetch(`http://localhost:5000/api/products`)
       .then((resp) => resp.json())
       .then((resp) => {
-        //console.log(resp)//;})
+        console.log(resp)
         setDataProducts(resp)
+        setTemp(0)
       })
       .catch((err) => console.log(err));
   }
 
 
+
   return (
+
     <div>
       <AdminHeader />
-      <div className="main-container">
-        <div className="secondary-container">
-          <div className="main-container div-btn">
 
-            {dataProducts.map((product, index) => (
-            
-              <div className="product-names">
-                            <Button
-                  text={product.nombre}
-                  otherprops="modify-buttons"
-                  onClickFunc={() =>
-                    //console.log(index)
-                    setTemp(index)
-                   // setDataProducts(dataProducts.at(index))
-                  }
-                />
+
+      {dataProducts.length !== 0 ? (
+
+        <>
+
+          <div className="main-container">
+            <div className="secondary-container">
+              <div className="main-container div-btn">
+
+                {dataProducts.map((product, index) => (
+
+                  <div className="product-names">
+                    <Button
+                      text={product.nombre}
+                      otherprops="modify-buttons"
+                      onClickFunc={() =>
+                        //console.log(index)
+                        setTemp(index)
+                        // setDataProducts(dataProducts.at(index))
+                      }
+                    />
+                  </div>
+
+                ))}
+                <div className="product-names">
+                  <Button
+                    text="Crear Producto"
+                    otherprops="create-buttons "
+                    onClickFunc={
+
+                      () =>
+
+
+                        setDataProducts({
+                          _id: "",
+                          id: "",
+                          urlImagen: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+                          nombre: "",
+                          descripcion: "",
+                          stock: 0,
+                          precio: ""
+                        })
+
+                    }
+                  />
+                </div>
               </div>
-              
-            ))}
-            <div className="product-names">
-              <Button
-                text="Crear Producto"
-                otherprops="create-buttons "
-                onClickFunc={
-                  
-                  () =>
-                  setDataProducts({
-                    id: "",
-                    urlImagen: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
-                    nombre: "",
-                    descripcion: "",
-                    stock: "",
-                    precio: "",
-                  })
-                }
-              />
+
+              <div>
+
+                <img className="img-modifiP" src={dataProducts[temp].urlImagen} />
+              </div>
+              <div className="div-txt">
+                <Input
+                  otherInputProps="modify-input"
+                  name="name"
+                  id="name"
+                  tag="Nombre: "
+                  defaultValue={dataProducts[temp].nombre}
+                />
+                <TextArea
+                  otherInputProps="modify-input"
+                  name="description"
+                  id="description"
+                  tag="Descripción: "
+                  defaultValue={dataProducts[temp].descripcion}
+                />
+                <Input
+                  otherInputProps="modify-input"
+                  name="price"
+                  id="price"
+                  tag="Precio: "
+                  defaultValue={dataProducts[temp].precio}
+                />
+                <Input
+                  otherInputProps="modify-input"
+                  name="stock"
+                  id="stock"
+                  tag="Stock: "
+                  defaultValue={dataProducts[temp].stock}
+                />
+                {dataProducts[temp].id === "" ? (
+                  <Input
+                    otherInputProps="modify-input"
+                    name="url"
+                    id="url"
+                    tag="Imagen: "
+                  />
+                ) : null}
+              </div>
+            </div>
+            <div className="secondary-container">
+              {dataProducts[temp].id === "" ? (
+                <Button text="Crear" />
+              ) : (
+                <Button text="Actualizar" />
+              )}
             </div>
           </div>
-          <div>
-            <span>{temp}</span>
-            <br></br>
-            <img className="img-modifiP" src={dataProducts.urlImagen} />
-          </div>
-          <div className="div-txt">
-            <Input
-              otherInputProps="modify-input"
-              name="name"
-              id="name"
-              tag="Nombre: "
-              defaultValue={dataProducts.nombre}
-            />
-            <TextArea
-              otherInputProps="modify-input"
-              name="description"
-              id="description"
-              tag="Descripción: "
-              defaultValue={dataProducts.descripcion}
-            />
-            <Input
-              otherInputProps="modify-input"
-              name="price"
-              id="price"
-              tag="Precio: "
-              defaultValue={dataProducts.precio}
-            />
-            <Input
-              otherInputProps="modify-input"
-              name="stock"
-              id="stock"
-              tag="Stock: "
-              defaultValue={dataProducts.stock}
-            />
-            {dataProducts.id == "" ? (
-              <Input
-                otherInputProps="modify-input"
-                name="url"
-                id="url"
-                tag="Imagen: "
-              />
-            ) : null}
-          </div>
-        </div>
-        <div className="secondary-container">
-          {dataProducts.id == "" ? (
-            <Button text="Crear" />
-          ) : (
-            <Button text="Actualizar" />
-          )}
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <span>Cargando..</span>
+
+        </>
+      )}
+
+
     </div>
   );
 };
