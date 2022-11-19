@@ -9,6 +9,7 @@ export const Input = ({
   defaultValue,
   otherLabelProps,
   otherInputProps,
+  disabled,
 }) => {
   return (
     <div className="input-div">
@@ -22,6 +23,7 @@ export const Input = ({
         value={defaultValue}
         id={name}
         placeholder={placeholder}
+        disabled={disabled}
       />
     </div>
   );

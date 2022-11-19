@@ -7,6 +7,12 @@ import { Input } from "../../components/input/input";
 import { TextArea } from "../../components/textArea/textArea";
 
 export const ModifyProductsPage = () => {
+  
+  
+  
+  
+
+  
   /*  const [activeProduct, setActiveProduct] = useState(
       productsExample.productos.at(0)
     );
@@ -14,7 +20,7 @@ export const ModifyProductsPage = () => {
   const [updateProducts, setUpdateProducts] = useState(false)
   const [dataProducts, setDataProducts] = useState([]);
   const [temp, setTemp] = useState('');
-
+  const [dato, setDato] = useState('Actualizar');
   useEffect(() => {
     getData();
     //console.log(`Datows ${dataProducts.length}`);
@@ -54,9 +60,12 @@ export const ModifyProductsPage = () => {
                       text={product.nombre}
                       otherprops="modify-buttons"
                       onClickFunc={() =>
-                        //console.log(index)
+                      //console.log(index)
+                      {
                         setTemp(index)
+                        setDato('Actualizar')
                         // setDataProducts(dataProducts.at(index))
+                      }
                       }
                     />
                   </div>
@@ -69,17 +78,18 @@ export const ModifyProductsPage = () => {
                     onClickFunc={
 
                       () =>
-
-
-                        setDataProducts({
-                          _id: "",
-                          id: "",
-                          urlImagen: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
-                          nombre: "",
-                          descripcion: "",
-                          stock: 0,
-                          precio: ""
-                        })
+                     {   setDato('Crear')
+                     
+                     }
+                      /*setDataProducts({
+                        _id: "",
+                        id: "",
+                        urlImagen: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+                        nombre: "",
+                        descripcion: "",
+                        stock: 0,
+                        precio: ""
+                      })*/
 
                     }
                   />
@@ -91,6 +101,14 @@ export const ModifyProductsPage = () => {
                 <img className="img-modifiP" src={dataProducts[temp].urlImagen} />
               </div>
               <div className="div-txt">
+                <Input
+                  otherInputProps="modify-input"
+                  name="id"
+                  id="id"
+                  tag="- Id: "
+                  defaultValue={dataProducts[temp].id}
+                  disabled="false"
+                />
                 <Input
                   otherInputProps="modify-input"
                   name="name"
@@ -119,7 +137,7 @@ export const ModifyProductsPage = () => {
                   tag="Stock: "
                   defaultValue={dataProducts[temp].stock}
                 />
-                {dataProducts[temp].id === "" ? (
+                {dato === "Crear" ? (
                   <Input
                     otherInputProps="modify-input"
                     name="url"
@@ -130,7 +148,7 @@ export const ModifyProductsPage = () => {
               </div>
             </div>
             <div className="secondary-container">
-              {dataProducts[temp].id === "" ? (
+              {dato !== "Actualizar" ? (
                 <Button text="Crear" />
               ) : (
                 <Button text="Actualizar" />
@@ -140,7 +158,7 @@ export const ModifyProductsPage = () => {
         </>
       ) : (
         <>
-          <span>Cargando..</span>
+          <span>Cargando...</span>
 
         </>
       )}
