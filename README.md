@@ -6,7 +6,6 @@
 ## Quick Start
 
 ``` bash
-npm install -S mongoose 
 
 # Install dependencies for server
 npm install
