@@ -6,6 +6,8 @@
 ## Quick Start
 
 ``` bash
+#Genera id
+npm install react-native-uuid
 
 # Install dependencies for server
 npm install

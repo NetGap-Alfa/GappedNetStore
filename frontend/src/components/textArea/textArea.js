@@ -9,6 +9,7 @@ export const TextArea = ({
   defaultValue,
   otherLabelProps,
   otherInputProps,
+  onChange,
 }) => {
   return (
     <div className="input-div">
@@ -22,6 +23,7 @@ export const TextArea = ({
         value={defaultValue}
         id={name}
         placeholder={placeholder}
+        onChange ={ onChange}
       />
     </div>
   );
