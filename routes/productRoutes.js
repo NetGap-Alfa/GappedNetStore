@@ -47,7 +47,7 @@ router.put("/update", async (req, res) => {
    
     return res.status(200).json({state:true,data:result})
   } else {
-    console.log(req.body.id)
+  
     res.json({ errorMessage: "Producto no existe" })
   }
 });
