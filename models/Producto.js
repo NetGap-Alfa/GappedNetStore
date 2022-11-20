@@ -11,7 +11,7 @@ const AuthorSchema = new Schema({
     },
     urlImagen: {
         type: String,
-        required: true,
+        required: false,
     },
     nombre: {
         type: String,
@@ -22,7 +22,7 @@ const AuthorSchema = new Schema({
         required: true,
     },
     stock: {
-        type: Number,
+        type: String,
         required: true,
     },
     precio: {

@@ -10,6 +10,7 @@ export const Input = ({
   otherLabelProps,
   otherInputProps,
   disabled,
+  onChange,
 }) => {
   return (
     <div className="input-div">
@@ -24,6 +25,7 @@ export const Input = ({
         id={name}
         placeholder={placeholder}
         disabled={disabled}
+        onChange={onChange}
       />
     </div>
   );

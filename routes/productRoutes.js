@@ -15,20 +15,28 @@ router.get("/stock", cors(), async (req, res) => {
   res.json(stockp);
 });
 
+
 router.post("/create", async (req, res) => {
+  
   const result = await Product.find({});
+
   let validar = result.filter((productoN) => productoN.id == req.body.id);
 
   if (validar.length == 0) {
+
     const prod = new Product(req.body);
     const result = await prod.save();
-    res.json({ successMessage: "Agregado con exito" });
+  
+    return res.status(200).json({state:true,data:result})
+
   } else {
-    res.json({ errorMessage: "El producto ya existe" })
+   
+    res.json({ errorMessage: req.body })
   }
 });
 
 router.put("/update", async (req, res) => {
+
   const result = await Product.find({});
   let validar = result.filter((product) => product.id == req.body.id);
 
@@ -36,8 +44,10 @@ router.put("/update", async (req, res) => {
     const id = validar[0]._id;
     const prod = req.body;
     const result = await Product.findByIdAndUpdate(id, prod);
-    res.json({ successMessage: "Producto Actualizado con éxito" });
+   
+    return res.status(200).json({state:true,data:result})
   } else {
+  
     res.json({ errorMessage: "Producto no existe" })
   }
 });
