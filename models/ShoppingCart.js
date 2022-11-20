@@ -1,31 +1,37 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const { Schema } = mongoose
+const { Schema } = mongoose;
 
 const AuthorSchema = new Schema({
-
-    id: {
+  productos: [
+    {
+      id: {
         type: String,
         required: true,
-        unique: true
-    },
-    urlImagen: {
+        unique: true,
+      },
+      urlImagen: {
         type: String,
         required: true,
-    },
-    nombre: {
+      },
+      nombre: {
         type: String,
         required: true,
-    },
-    amount: {
+      },
+      amount: {
         type: Number,
         required: true,
-    },
-    precio: {
+      },
+      precio: {
         type: String,
         required: true,
-    }
+      },
+    },
+  ],
+  precioTotal: {
+    type: Number,
+    required: true,
+  }
+});
 
-})
-
-module.exports = mongoose.model('shoppingCart', AuthorSchema)
+module.exports = mongoose.model("shoppingCart", AuthorSchema);
