@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import axios from "axios";
 import "./shoppingCartPage.css";
 import { ClientHeader } from "../../components/clientHeader/clientHeader";
 import { Button } from "../../components/button/button";
@@ -7,11 +8,24 @@ import { productCartExample } from "../../data/data";
 
 export const ShoppingCartPage = () => {
   const navigate = useNavigate();
+  const [shoppingCart, setShoppingCart] = React.useState([{}]);
+
+  const baseURL = "/api/shoppingCart";
+
+  React.useEffect(() => {
+    async function getData() {
+      await axios.get(baseURL).then((response) => {
+        setShoppingCart(response.data);
+      });
+    }
+    getData();
+  }, []);
+
   return (
     <div>
       <ClientHeader />
       <div className="main-container">
-        <table className="table-shoping" >
+        <table className="table-shoping">
           <tr>
             <th className="th-shopingCart">Imagen</th>
             <th className="th-shopingCart">Cantidad</th>
@@ -19,17 +33,26 @@ export const ShoppingCartPage = () => {
             <th className="th-shopingCart">Valor</th>
             <th className="th-shopingCart">Total</th>
           </tr>
-          {productCartExample.productos.map((product) => (
+          {shoppingCart.at(0).productos?.map((product) => (
             <tr>
-              <td className="th-shopingCart">
-                <img className="img-shoping" src={product.urlImage}/>
+              <td className="th-shopingCart-image">
+                <img className="img-shoping" src={product.urlImagen} />
               </td>
-              <td className="th-shopingCart">{product.amount}</td>
-              <td className="th-shopingCart">{product.name}</td>
-              <td className="th-shopingCart">{product.price}</td>
-              <td className="th-shopingCart">{product.price*product.amount}</td>
+              <td className="th-shopingCart-amount">{product.amount}</td>
+              <td className="th-shopingCart-name">{product.nombre}</td>
+              <td className="th-shopingCart-price">{product.precio}</td>
+              <td className="th-shopingCart-total">
+                {(product.precio * product.amount).toFixed(2)}
+              </td>
             </tr>
           ))}
+          <tr>
+            <td className="th-shopingCart-total">Total: </td>
+            <td/>
+            <td/>
+            <td/>
+            <td className="th-shopingCart-total">{(shoppingCart.at(0).precioTotal)?.toFixed(2)}</td>
+          </tr>
         </table>
       </div>
       <div className="button-container">
