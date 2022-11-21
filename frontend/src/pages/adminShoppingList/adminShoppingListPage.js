@@ -2,8 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./adminShoppingListPage.css";
 import { AdminHeader } from "../../components/adminHeader/adminHeader";
-import { productsExample } from "../../data/data";
-
 import './css/animate.css'
 import './css/icomoon.css'
 import './css/bootstrap.css'
@@ -17,14 +15,12 @@ export const AdminShoppingListPage = () => {
 
   useEffect(() => {
     getData();
-   // console.log(`Datos ${dataProducts.length}`);
   }, [updateProducts]);
-  
+
   function getData() {
     fetch(`http://localhost:5000/api/products`)
       .then((resp) => resp.json())
       .then((resp) => {
-        //console.log(resp);//})
         setDataProducts(resp)
       })
       .catch((err) => console.log(err));
@@ -33,17 +29,12 @@ export const AdminShoppingListPage = () => {
   return (
     <div>
       <AdminHeader />
-
       <div id="fh5co-page">
-
-
         <div id="fh5co-main">
-
           <div className="fh5co-narrow-content">
             <h2 className="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Productos </h2>
             <div className="row animate-box" data-animate-effect="fadeInLeft">
               <div className="clearfix visible-sm-block"></div>
-
               {dataProducts.map((productadmin) => (
                 <>
                   <div className="clearfix visible-sm-block"></div>
@@ -54,19 +45,14 @@ export const AdminShoppingListPage = () => {
                       <p  >$ {productadmin.precio}</p>
                       <p >Stock: {productadmin.stock}</p>
                     </a>
-
                   </div>
                   <div className="clearfix visible-sm-block"></div>
                 </>
               ))}
-
-
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };
