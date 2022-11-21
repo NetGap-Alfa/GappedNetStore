@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const Ventas = require('../models/Ventas')
 
 const router = express.Router();
 
@@ -51,8 +52,9 @@ const ventas = {
   ],
 };
 
-router.get("/", cors(), (req, res) => {
-  res.json(ventas);
+router.get("/", cors(), async(req, res) => {
+  const result = await Ventas.find({})
+  res.json(result);
 });
 
 module.exports = router;
