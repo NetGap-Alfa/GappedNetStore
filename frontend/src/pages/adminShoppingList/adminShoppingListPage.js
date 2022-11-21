@@ -18,7 +18,7 @@ export const AdminShoppingListPage = () => {
   }, [updateProducts]);
 
   function getData() {
-    fetch(`http://localhost:5000/api/products`)
+    fetch(`/api/products`)
       .then((resp) => resp.json())
       .then((resp) => {
         setDataProducts(resp)

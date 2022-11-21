@@ -45,7 +45,7 @@ export const ModifyProductsPage = () => {
   }, [updateProducts]);
 
   function getData() {
-    fetch(`http://localhost:5000/api/products`)
+    fetch(`/api/products`)
       .then((resp) => resp.json())
       .then((resp) => {
         setDataProducts(resp)
@@ -66,7 +66,7 @@ export const ModifyProductsPage = () => {
     });
 
     if (dato === "Crear") {
-      fetch(`http://localhost:5000/api/products/create`, {
+      fetch(`/api/products/create`, {
         method: "POST",
         body: dataProduct,
         headers: {
@@ -85,7 +85,7 @@ export const ModifyProductsPage = () => {
         .catch((err) => console.log("Ocurrio un error al guardar: ", err));
     } else {
       console.log(`Se va a enviar ${dataProduct}`)
-      fetch(`http://localhost:5000/api/products/update`, {
+      fetch(`/api/products/update`, {
         method: "PUT",
         body: dataProduct,
         headers: {
