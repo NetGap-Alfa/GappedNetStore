@@ -4,7 +4,6 @@ import axios from "axios";
 import "./shoppingCartPage.css";
 import { ClientHeader } from "../../components/clientHeader/clientHeader";
 import { Button } from "../../components/button/button";
-import { productCartExample } from "../../data/data";
 
 export const ShoppingCartPage = () => {
   const navigate = useNavigate();

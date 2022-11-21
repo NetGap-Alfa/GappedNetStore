@@ -8,7 +8,6 @@ import { ShoppingCartPage } from "./pages/shoppingCart/shoppingCartPage";
 
 const App = () => {
   return (
-    
     <BrowserRouter>
       <Routes>
         <Route path="/admin/shoppingList" element={<AdminShoppingListPage />} />

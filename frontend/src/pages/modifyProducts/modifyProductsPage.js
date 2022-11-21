@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "./modifyProductsPage.css";
 import { AdminHeader } from "../../components/adminHeader/adminHeader";
-import { productsExample } from "../../data/data";
 import { Button } from "../../components/button/button";
 import { Input } from "../../components/input/input";
 import { TextArea } from "../../components/textArea/textArea";
