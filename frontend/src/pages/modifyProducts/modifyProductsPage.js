@@ -7,7 +7,6 @@ import { TextArea } from "../../components/textArea/textArea";
 
 export const ModifyProductsPage = () => {
 
-  const [updateProducts, setUpdateProducts] = useState(false)
   const [dataProducts, setDataProducts] = useState([]);
   const [temp, setTemp] = useState('');
   const [dato, setDato] = useState('Actualizar');
@@ -41,8 +40,8 @@ export const ModifyProductsPage = () => {
 
   useEffect(() => {
     getData();
-
-  }, [updateProducts]);
+    
+  }, []);
 
   function getData() {
     fetch(`/api/products`)
@@ -76,15 +75,15 @@ export const ModifyProductsPage = () => {
         .then((resp) => resp.json())
         .then((resp) => {
           if (resp.state) {
-            alert("Se ha Insertado el Registro");
+            alert("Producto registrado");
             cleanFields();
           } else {
-            alert("El Id ya se ha Registrado");
+            alert("Producto registrado");
           }
         })
         .catch((err) => console.log("Ocurrio un error al guardar: ", err));
     } else {
-      console.log(`Se va a enviar ${dataProduct}`)
+      
       fetch(`/api/products/update`, {
         method: "PUT",
         body: dataProduct,
