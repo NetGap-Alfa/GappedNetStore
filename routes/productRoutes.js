@@ -45,7 +45,7 @@ router.put("/update", async (req, res) => {
     const prod = req.body;
     const result = await Product.findByIdAndUpdate(id, prod);
    
-    return res.status(200).json({state:true,data:result})
+    return res.status(200).json({state:true,data:prod})
   } else {
   
     res.json({ errorMessage: "Producto no existe" })

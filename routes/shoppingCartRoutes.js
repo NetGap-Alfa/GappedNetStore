@@ -2,47 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const Product = require("../models/Producto");
 const ShoppingCart = require("../models/ShoppingCart");
+const Ventas = require("../models/Ventas");
 
 const router = express.Router();
-
-const sales = {
-  ventas: [
-    {
-      fecha: "27/09/2022",
-      idCliente: "111111",
-      idVenta: "123",
-      valor: 35,
-      confirmado: true,
-      detalleCompra: [
-        {
-          idProducto: "GGOEAFKA087599",
-          cantidad: 2,
-        },
-      ],
-    },
-  ],
-};
-
-const shoppingCartt = {
-  productos: [
-    {
-      id: "GGOEAFKA087499",
-      urlImagen: "https://i.blogs.es/27b569/telefono/450_1000.jpeg",
-      name: "Android Small Removable Sticker Sheet",
-      amount: 2,
-      price: "2.99",
-    },
-    {
-      id: "GGOEAFKA087599",
-      urlImagen:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rubik's_cube.svg/240px-Rubik's_cube.svg.png",
-      name: "Android Large Removable Sticker Sheet",
-      amount: 1,
-      price: "3.99",
-    },
-  ],
-};
-//#endregion
 
 //#region GET THE WHOLE CART
 router.get("/", cors(), async (req, res) => {
@@ -90,7 +52,7 @@ router.post("/addToCart", cors(), async (req, res) => {
       if (index < 0) {
         //Producto no existe en el carrito
         shoppingCart.at(0).productos.push({
-          id:  product.id,
+          id: product.id,
           urlImagen: product.urlImagen,
           nombre: product.nombre,
           amount: req.body.amount,
@@ -105,7 +67,8 @@ router.post("/addToCart", cors(), async (req, res) => {
           ).amount = req.body.amount;
       }
       shoppingCart.at(0).productos.forEach((productInside) => {
-        totalPrice = totalPrice + productInside.amount * parseFloat(productInside.precio);
+        totalPrice =
+          totalPrice + productInside.amount * parseFloat(productInside.precio);
       });
       shoppingCart.at(0).precioTotal = totalPrice;
       await ShoppingCart.findByIdAndUpdate(
@@ -121,57 +84,78 @@ router.post("/addToCart", cors(), async (req, res) => {
 //#endregion
 
 //#region BUY THE CART
-router.post("/buy", cors(), (req, res) => {
+router.post("/buy", cors(), async (req, res) => {
   let tempProduct;
   let quantityError = undefined;
+  const products = await Product.find({});
+  const shoppingCart = await ShoppingCart.find({});
+  const ventas = await Ventas.find({});
 
-  shoppingCart.productos.forEach((shoppingProd) => {
-    tempProduct = products.find((product) => product.id == shoppingProd.id);
-    if (tempProduct.stock < shoppingProd.amount) {
-      quantityError = {
-        name: shoppingProd.name,
-        id: shoppingProd.id,
-      };
-    }
-  });
-
-  if (quantityError != undefined) {
-    res.json({
-      errorMessage:
-        "No tenemos stock para el siguiente item: " + quantityError.name,
-      itemId: quantityError.id,
-    });
-  } else {
-    //Push a ventas
-    sales.ventas.push({
-      fecha: new Date(),
-      idCliente: "" + Date.now(),
-      idVenta: "0001",
-      valor: shoppingCart["totalprice"],
-      confirmado: true,
-      detalleCompra: shoppingCart.productos.map((product) => {
-        return {
-          idProducto: product.id,
-          cantidad: product.amount,
+  if(shoppingCart.length != 0){
+    shoppingCart.at(0).productos.forEach((shoppingProd) => {
+      tempProduct = products.find((product) => product.id == shoppingProd.id);
+      if (tempProduct.stock < shoppingProd.amount) {
+        quantityError = {
+          name: shoppingProd.name,
+          id: shoppingProd.id,
         };
-      }),
+      }
     });
-
-    //Push a productos
-    shoppingCart.productos.forEach((shoppingProd) => {
-      products.find((product) => product.id == shoppingProd.id).stock -=
-        shoppingProd.amount;
-    });
-
-    //Vaciar shoppingCart
-    shoppingCart.productos = [];
-
+  
+    if (quantityError != undefined) {
+      res.json({
+        errorMessage:
+          "No tenemos stock para el siguiente item: " + quantityError.name,
+        itemId: quantityError.id,
+      });
+    } else {
+      //Push a ventas
+      const newVenta = new Ventas({
+        fecha: new Date(),
+        idCliente: "007",
+        idVenta: ""+Date.now(),
+        valor: shoppingCart.at(0).precioTotal,
+        confirmado: true,
+        detalleCompra: shoppingCart.at(0).productos.map((product) => {
+          return {
+            idProducto: product.id,
+            cantidad: product.amount,
+          };
+        }),
+      });
+  
+      newVenta.save()
+  
+      //Push a productos
+      shoppingCart.at(0).productos.forEach(async (shoppingProd) => {
+        const spcid = shoppingProd.id;
+        const prodToMod = products.find((product) => product.id == spcid);
+        prodToMod.stock = "" + (parseInt(prodToMod.stock) - shoppingProd.amount);
+        const tempProd = {
+          "id": prodToMod.id,
+          "urlImagen": prodToMod.urlImagen,
+          "nombre": prodToMod.nombre,
+          "descripcion": prodToMod.descripcion,
+          "stock": prodToMod.stock,
+          "precio": prodToMod.precio,
+        };
+        await Product.findOneAndUpdate({ id: prodToMod.id} ,tempProd);
+      });
+  
+      //Vaciar shoppingCart
+      await ShoppingCart.deleteOne({ _id: shoppingCart.at(0)._id });
+  
+      res.json({
+        successMessage: "Comprado con éxito",
+      });
+    }
+  }else{
     res.json({
-      successMessage: "Comprado con éxito",
-      ventas: sales,
-      productos: products,
+      successMessage: "No tienes items en el carrito",
     });
   }
+
+  
 });
 //#endregion
 

@@ -28,10 +28,6 @@ const AuthorSchema = new Schema({
         type: Boolean,
         required: true,
     },
-    precio: {
-        type: String,
-        required: true,
-    },
 
     detalleCompra: [{
         idProducto: {

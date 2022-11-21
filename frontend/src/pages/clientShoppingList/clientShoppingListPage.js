@@ -39,7 +39,7 @@ export const ClientShoppingListPage = () => {
             </h2>
             <div className="row animate-box" data-animate-effect="fadeInLeft">
               <div className="clearfix visible-sm-block"></div>
-              {productos?.map((productadmin) => (
+              {productos?.map((productadmin,index) => (
                 <>
                   <div className="clearfix visible-sm-block"></div>
                   <div className="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
@@ -57,7 +57,7 @@ export const ClientShoppingListPage = () => {
                     </a>
 
                     <div className="cen">
-                      <select name="amount" id="amount-selector">
+                      <select name="amount" id={"amount-selector"+index}>
                         {Array.apply(null, { length: productadmin.stock }).map(
                           (e, i) => (
                             <option value={i + 1}>{i + 1}</option>
@@ -69,13 +69,15 @@ export const ClientShoppingListPage = () => {
                         onClickFunc={() => {
                           async function pushToCart() {
                             const amountSelected =
-                              document.getElementById("amount-selector");
+                              document.getElementById("amount-selector"+index);
+                              console.log(amountSelected.options[amountSelected.selectedIndex].text)
                             await axios.post("/api/shoppingCart/addToCart", {
                               productId: productadmin.id,
                               amount: parseInt(
                                 amountSelected.options[amountSelected.selectedIndex].text
                               ),
                             });
+                            alert("Producto agregado");
                           }
                           pushToCart();
                         }}

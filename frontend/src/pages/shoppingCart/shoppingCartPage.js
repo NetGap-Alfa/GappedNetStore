@@ -32,7 +32,7 @@ export const ShoppingCartPage = () => {
             <th className="th-shopingCart">Valor</th>
             <th className="th-shopingCart">Total</th>
           </tr>
-          {shoppingCart.at(0).productos?.map((product) => (
+          {shoppingCart?.at(0).productos?.map((product) => (
             <tr>
               <td className="th-shopingCart-image">
                 <img className="img-shoping" src={product.urlImagen} />
@@ -47,16 +47,27 @@ export const ShoppingCartPage = () => {
           ))}
           <tr>
             <td className="th-shopingCart-total">Total: </td>
-            <td/>
-            <td/>
-            <td/>
-            <td className="th-shopingCart-total">{(shoppingCart.at(0).precioTotal)?.toFixed(2)}</td>
+            <td />
+            <td />
+            <td />
+            <td className="th-shopingCart-total">
+              {shoppingCart.at(0).precioTotal?.toFixed(2)}
+            </td>
           </tr>
         </table>
       </div>
       <div className="button-container">
         <div className="header-button-container">
-          <Button text="Terminar venta" />
+          <Button
+            text="Terminar venta"
+            onClickFunc={() => {
+              async function pushToCart() {
+                await axios.post("/api/shoppingCart/buy");
+              }
+              pushToCart();
+              alert("Venta finalizada");
+            }}
+          />
         </div>
         <Button
           text="Cancelar"
