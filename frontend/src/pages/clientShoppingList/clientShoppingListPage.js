@@ -55,14 +55,26 @@ export const ClientShoppingListPage = () => {
                       <p>$ {productadmin.precio}</p>
                       <p>Stock: {productadmin.stock}</p>
                     </a>
-                    <div className="cen" aria-describedby="">
+
+                    <div className="cen">
+                      <select name="amount" id="amount-selector">
+                        {Array.apply(null, { length: productadmin.stock }).map(
+                          (e, i) => (
+                            <option value={i + 1}>{i + 1}</option>
+                          )
+                        )}
+                      </select>
                       <Button
                         text="Comprar"
                         onClickFunc={() => {
                           async function pushToCart() {
+                            const amountSelected =
+                              document.getElementById("amount-selector");
                             await axios.post("/api/shoppingCart/addToCart", {
                               productId: productadmin.id,
-                              amount: 5,
+                              amount: parseInt(
+                                amountSelected.options[amountSelected.selectedIndex].text
+                              ),
                             });
                           }
                           pushToCart();
