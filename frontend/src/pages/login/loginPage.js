@@ -17,7 +17,6 @@ export const LoginPage = () => {
   return (
     <div>
       <div className="main-container">
-
         <div className="wrapper fadeInDown">
           <div id="formContent">
             <div className="fadeIn first">
@@ -28,8 +27,6 @@ export const LoginPage = () => {
               <input type="password" id="login" className="fadeIn third" name="login" placeholder="********" />
               <input type="submit" className="fadeIn fourth" value="Log In" />
             </form>
-
-
             <div id="formFooter">
               <a className="underlineHover" href="#">Forgot Password?</a>
             </div>
