@@ -24,10 +24,10 @@ export const SalesListPage = () => {
   let total = 0
 
 
- /* for (let i = 0; i < Sales.ventas.length; i++) {
+  for (let i = 0; i < Sales.length; i++) {
 
-    total = total + Sales.ventas.at(i).valor
-  }*/
+    total = total + Sales.at(i).valor
+  }
 
 
   return (
@@ -40,7 +40,7 @@ export const SalesListPage = () => {
             <th className="th-salesList">IdVenta</th>
             <th className="th-salesList">Valor</th>
           </tr>
-          {Sales.at(0).ventas.map((worth) => (
+          {Sales?.map((worth) => (
             <tr>
               <td className="th-salesList">{worth.fecha}</td>
               <td className="th-salesList">{worth.idVenta}</td>
